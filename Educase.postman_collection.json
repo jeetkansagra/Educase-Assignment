@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "9c6a99da-496f-48b2-9dd3-b8a645beb6c7",
+		"name": "Educase",
+		"description": "StartFragment\n\n# API Documentation - School Management System\n\n## **Overview**\n\nThis API allows users to add and list schools with location-based sorting. It provides two main endpoints:\n\n1. **Add School** (`POST /addSchool`)\n    \n2. **List Schools** (`GET /listSchools`)\n    \n\nThe API interacts with a **MySQL database** where schools are stored with their **name, address, latitude, and longitude**. Schools can be retrieved and sorted by distance based on the user's location.\n\n---\n\n## **Database Setup**\n\nThe database includes a table named `schools` with the following structure:\n\n``` sql\nCREATE TABLE schools (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    name VARCHAR(255) NOT NULL,\n    address VARCHAR(255) NOT NULL,\n    latitude FLOAT NOT NULL,\n    longitude FLOAT NOT NULL\n);\n\n ```\n\n---\n\n## **Endpoints**\n\n### **1\\. Add School**\n\n- **Endpoint:** `/addSchool`\n    \n- **Method:** `POST`\n    \n- **Description:** Adds a new school to the database after validating the input.\n    \n\n#### **Request Format:**\n\n- **Headers:**  \n    `{ \"Content-Type\": \"application/json\"}`\n    \n- **Body (JSON):**  \n    `{ \"name\": \"D Y Patil International School\", \"address\": \"Worli, Mumbai, Maharashtra\", \"latitude\": 18.9947, \"longitude\": 72.8233}`\n    \n\n#### **Response Format:**\n\n- **Success (201 Created):**  \n    `{ \"message\": \"School added successfully!\"}`\n    \n- **Error (400 Bad Request - Invalid Inputs):**  \n    `{ \"message\": \"Invalid Inputs\"}`\n    \n- **Error (409 Conflict - School Already Exists):**  \n    `{ \"message\": \"School already exists\"}`\n    \n- **Error (500 Internal Server Error):**\n    \n    `{ \"message\": \"Internal Server Error\"}`\n    \n\n---\n\n### **2\\. List Schools**\n\n- **Endpoint:** `/listSchools`\n    \n- **Method:** `GET`\n    \n- **Description:** Retrieves all schools and sorts them by distance from the user’s location.\n    \n\n#### **Request Format:**\n\n- **Query Parameters:**  \n    `{ \"latitude\": 18.9750, \"longitude\": 72.8258}`\n    \n\n#### **Response Format:**\n\n- **Success (200 OK):**  \n    `{ \"schools\": [ { \"id\": 1, \"name\": \"D Y Patil International School\", \"address\": \"Worli, Mumbai, Maharashtra\", \"latitude\": 18.9947, \"longitude\": 72.8233, \"distance\": 2.1 } ]}`\n    \n- **Error (400 Bad Request - Invalid Inputs):**\n    \n    EndFragment  \n    `{ \"message\": \"Invalid Inputs\"}`\n    \n- StartFragment**Error (404 Not Found - No Schools Available):**EndFragment\n    \n\n`{ \"message\": \"No schools found\"}`\n\n- StartFragment**Error (500 Internal Server Error):**EndFragment\n    \n\n`{ \"message\": \"Internal Server Error\"}`\n\n---\n\n---",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33587887"
+	},
+	"item": [
+		{
+			"name": "https://educase-assignment-n1vq.onrender.com/addSchool",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Shishuvan School\",\r\n    \"address\": \"Matunga, Mumbai, Maharashtra\",\r\n    \"latitude\": 19.0244, \r\n    \"longitude\": 72.8552\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://educase-assignment-52qs.onrender.com/addSchool",
+					"protocol": "https",
+					"host": [
+						"educase-assignment-52qs",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"addSchool"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://educase-assignment-n1vq.onrender.com/listSchools?latitude=19.0244&longitude=72.8552\n",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NX0.fA80DKFf4WV1ndhXAqo2qLis95yV7NYIvMZdMHxQbLQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://educase-assignment-52qs.onrender.com/listSchools?latitude=19.0244&longitude=72.8552\n",
+					"protocol": "https",
+					"host": [
+						"educase-assignment-52qs",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"listSchools"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "19.0244"
+						},
+						{
+							"key": "longitude",
+							"value": "72.8552\n"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
