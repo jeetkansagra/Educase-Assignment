@@ -23,6 +23,15 @@ app.post("/addSchool", async (req, res) => {
 
         const { name, address, latitude, longitude } = result.data;
 
+        const [existingSchools] = await db.execute(
+            "SELECT * FROM locations WHERE name = ? AND address = ?",
+            [name, address]
+        );
+
+        if (existingSchools.length > 0) {
+            return res.status(409).json({ message: "School already exists!" });
+        }
+
         await db.query(`INSERT INTO locations (name, address, latitude, longitude) VALUES (?, ?, ?, ?)`, 
             [name, address, latitude, longitude]);
 
